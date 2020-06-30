@@ -26,10 +26,9 @@ onion_url* init_url(){
 
 	onion_url_add(urls, "", index_view); 
 	//onion_url_add(urls, "", test_view); 
-	onion_url_add_handler(urls, "^css", onion_handler_export_local_new("test_template/css"));
-	onion_url_add_handler(urls, "^assets", onion_handler_export_local_new("test_template/assets"));
-	onion_url_add_handler(urls, "^js", onion_handler_export_local_new("test_template/js"));
-	onion_url_add_handler(urls, "^css", onion_handler_export_local_new("test_template/css"));
+	onion_url_add_handler(urls, "^assets", onion_handler_export_local_new("template/assets"));
+	onion_url_add_handler(urls, "^js", onion_handler_export_local_new("template/js"));
+	onion_url_add_handler(urls, "^css", onion_handler_export_local_new("template/css"));
 	//onion_url_add(urls, "css/cssfile.css", static_view); 
 	return urls; 
 }

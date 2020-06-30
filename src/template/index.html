@@ -67,13 +67,14 @@
                     
                     <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2-->
                     <!-- Portfolio Item 1-->
-                    <TMPL_LOOP name="portfolio__list">
+                    <TMPL_LOOP name="portfolio_list">
                         <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+							<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#<TMPL_VAR name="portfolio_id">">
                                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                     <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
                                 <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="" />
+								<p style="text-align: center; font-size: 20px; font-weight: bold;"><TMPL_VAR name="main_portfolio_title"></p>
                             </div>
                         </div>
                     </TMPL_LOOP>
@@ -99,7 +100,7 @@
                 </div>
                 <!-- About Section Button-->
                 <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="gutte.tistory.com">
+                    <a class="btn btn-xl btn-outline-light" href="https://gutte.tistory.com">
                         Go Tistory Blog
                     </a>
                 </div>
@@ -178,7 +179,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8">
                                         <!-- Portfolio Modal - Title-->
-                                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal1Label">Log Cabin</h2>
+										<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal1Label"><TMPL_VAR name="portfolio_title"></h2>
                                         <!-- Icon Divider-->
                                         <div class="divider-custom">
                                             <div class="divider-custom-line"></div>
