@@ -1,4 +1,5 @@
 a.out 
 test* 
 *.o 
-*.key 
+*.key
+*.bck

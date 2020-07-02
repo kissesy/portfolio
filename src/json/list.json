@@ -1,0 +1,14 @@
+{
+	"dirlist": [
+		{
+			"title" : "test 7등", 
+			"filepath" : "../post/test1.md",
+			"id" : "portfolio1"
+		}, 
+		{
+			"title" : "test 2등",
+			"filepath" : "../post/test2.md",
+			"id" : "portfolio2"
+		}
+	]
+}

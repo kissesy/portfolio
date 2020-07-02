@@ -16,7 +16,8 @@ int main(int argc, char** argv){
 
 void shutdown_server(int _){
 	if(server){
-		onion_listen_stop(server); 
+		onion_listen_stop(server);
+	   //onion_free(server);	
 	}
 }
 

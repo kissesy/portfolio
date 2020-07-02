@@ -1,35 +1,71 @@
 #include "controller.h"
 
-int index_view(void* p, onion_request* req, onion_response* res){
-
+TMPL_varlist* index_template(){
 	TMPL_varlist* context = NULL;
 	TMPL_varlist* portfolio_list_var = NULL; 
-	TMPL_varlist* portfolio_detail_var = NULL;
-	TMPL_varlist* portfolio_title = NULL;
+	TMPL_varlist* portfolio_detail_var = NULL; 
 
-	TMPL_loop* loop = NULL; 
+	TMPL_loop* portfolio_list_loop = NULL; 
+	TMPL_loop* portfolio_detail_loop = NULL; 
 
-	char number[30] = {0, };
-    char* title_list[3] = {"test1 1등", "test대회 2등", "test대회 3등"};	
-
-	for(int i=0;i<3;i++){
-		sprintf(number, "%s%d", "portfolio", i); 
-		portfolio_list_var = TMPL_add_var(0, "portfolio_id", number, "main_portfolio_title",title_list[i], 0);
-	    loop = TMPL_add_varlist(loop, portfolio_list_var); 	
-	}
-
-	context = TMPL_add_loop(context, "portfolio_list", loop);
+	DirHead* dirhead = dirhead_new(); 
 	
-	loop = NULL; 
-	for(int i=0;i<3;i++){
-		sprintf(number, "%s%d", "portfolio", i);
-		portfolio_detail_var = TMPL_add_var(0, "portfolio_id", number, "portfolio_title", title_list[i], 0); 
-		//portfolio_title = TMPL_add_var(0, "portfolio_title", title_list[i], 0); 
-		loop = TMPL_add_varlist(loop, portfolio_detail_var); 
+	//json 파싱
+	char* buffer = read_file("json/list.json");
+	const cJSON* dirlist = NULL; 
+    const cJSON* dir = NULL; 
+	cJSON* monitor = cJSON_Parse(buffer);
+	if(monitor == NULL){
+
+	}
+	//dirlist 구조체 형태로 filepath, title, content 담음 need free buffer, filename, title, id 
+	dirlist = cJSON_GetObjectItemCaseSensitive(monitor, "dirlist"); 
+	cJSON_ArrayForEach(dir, dirlist){
+		
+		cJSON* title = cJSON_GetObjectItemCaseSensitive(dir, "title"); 
+		cJSON* filepath = cJSON_GetObjectItemCaseSensitive(dir, "filepath");
+	    cJSON* id = cJSON_GetObjectItemCaseSensitive(dir, "id");
+		if((filepath->valuestring != NULL) && (title->valuestring != NULL)){	
+			Insert_dir(dirhead, filepath->valuestring, title->valuestring, id->valuestring);
+		}
 	}
 
-	context = TMPL_add_loop(context, "portfolio_detail", loop); 
+	//template에 넣기위한 context 작업 
+	DirList* curr = dirhead->head;
+	while(curr != NULL){
 
+		//list는 프로젝트들 나열 아래 TMPL_add_var같은 함수들은 인자로 들어오는 문자열 포인터들을 그대로 쓰지 않고 동적할당하고 씀 그럼 나중에 free걱정이 덞. 
+		portfolio_list_var = TMPL_add_var(0, "portfolio_id", curr->id, 
+											 "main_portfolio_title", curr->title, 0);
+
+		//detail은 프로젝트 세부 내역들 클릭시 dialog가 뜨고 내부 글은 buffer 넣을건데 이건 잠시 기달 buffer의 내용은 markdown 
+		portfolio_detail_var = TMPL_add_var(0, "portfolio_id", curr->id, 
+											   "portfolio_title", curr->title, 
+											   "content", curr->buffer, 0); //buffer은 나중에 
+
+		portfolio_list_loop = TMPL_add_varlist(portfolio_list_loop, portfolio_list_var); 
+		portfolio_detail_loop = TMPL_add_varlist(portfolio_detail_loop, portfolio_detail_var); 
+		curr = curr->next; 
+	}
+
+	context = TMPL_add_loop(context, "portfolio_list", portfolio_list_loop);
+	context = TMPL_add_loop(context, "portfolio_detail", portfolio_detail_loop); 	
+	
+	free(buffer);
+	cJSON_Delete(monitor);
+	Delete_dir(dirhead);
+	free(dirhead);
+	return context; 
+}
+
+
+int index_view(void* p, onion_request* req, onion_response* res){
+
+	TMPL_varlist* context = index_template(); 
+	if(context == NULL){
+		ONION_INFO("index template() return NULL");
+		return OCS_INTERNAL_ERROR;
+	}
 	char* buffer = MakeTemplateBuffer(context, "template/index.html");
 	if(buffer == NULL){
 		ONION_INFO("open_memstream() return NULL");
@@ -38,6 +74,7 @@ int index_view(void* p, onion_request* req, onion_response* res){
 	onion_response_printf(res, "%s", buffer);
 	free(buffer);
 	TMPL_free_varlist(context);
+
 	return OCS_PROCESSED; 
 }
 
