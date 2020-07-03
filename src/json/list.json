@@ -1,14 +1,19 @@
 {
 	"dirlist": [
 		{
-			"title" : "test 7등", 
-			"filepath" : "../post/test1.md",
+			"title" : "2018학년도 단국대학교 캡스톤디자인 (금상)", 
+			"filepath" : "../post/test1.html",
 			"id" : "portfolio1"
 		}, 
 		{
-			"title" : "test 2등",
-			"filepath" : "../post/test2.md",
+			"title" : "성균관대학교 2018 창의적 종합설계 경진 대회 (장려상)",
+			"filepath" : "../post/test2.html",
 			"id" : "portfolio2"
+		},
+		{
+			"title" : "2018 창의적 종합설계 경진대회 (특별상)",
+			"filepath" : "../post/test3.html",
+			"id" : "portfolio3"
 		}
 	]
 }

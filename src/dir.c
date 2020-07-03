@@ -15,6 +15,7 @@ void Insert_dir(DirHead* dirhead, char* filename, char* title, char* id){
 	newdir->filename = (char*)malloc(strlen(filename) + 1); 
 
 	strcpy(newdir->filename, filename); 
+	//newdir->buffer = parse(newdir->filename);
 	newdir->buffer = read_file(newdir->filename); 
 
 	//newdir->title = title; 이렇게 하면 나중에 free문제가 생김 추천방법은 인자로 받은것은 그대로 쓰지 않고 할당해서 따로 만들면 편함 

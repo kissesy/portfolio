@@ -74,7 +74,7 @@
                                     <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
                                 <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="" />
-								<p style="text-align: center; font-size: 20px; font-weight: bold;"><TMPL_VAR name="main_portfolio_title"></p>
+								<p style="text-align: center; font-size: 15px; font-weight: bold;"><TMPL_VAR name="main_portfolio_title"></p>
                             </div>
                         </div>
                     </TMPL_LOOP>
@@ -189,7 +189,10 @@
                                         <!-- Portfolio Modal - Image-->
                                         <img class="img-fluid rounded mb-5" src="assets/img/portfolio/cabin.png" alt="" />
                                         <!-- Portfolio Modal - Text-->
-											<p class="mb-5"><TMPL_VAR name="content"></p> 
+										<!--<p class="mb-5"><TMPL_VAR name="content"></p> -->
+										<div>
+											<TMPL_VAR name="content">
+										</div>
                                         <button class="btn btn-primary" data-dismiss="modal">
                                             <i class="fas fa-times fa-fw"></i>
                                             Close Window

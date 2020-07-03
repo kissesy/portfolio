@@ -16,7 +16,6 @@
 //#include <onion/handlers/exportlocal.h>
 #include "cJSON.h"
 
-
 typedef struct _DirList{
 	char* filename; 
 	char* title; 
@@ -43,3 +42,15 @@ char* read_file(const char* filename);
 DirHead* dirhead_new();
 void Insert_dir(DirHead* dirhead, char* filename, char* title, char* id); 
 void Delete_dir(DirHead* dirhead); 
+
+
+char* parse(char* filename);
+
+
+
+
+
+
+
+
+
