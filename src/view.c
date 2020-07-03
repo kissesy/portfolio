@@ -14,9 +14,11 @@ TMPL_varlist* index_template(){
 	char* buffer = read_file("json/list.json");
 	const cJSON* dirlist = NULL; 
     const cJSON* dir = NULL; 
+	//json parse error 
 	cJSON* monitor = cJSON_Parse(buffer);
 	if(monitor == NULL){
-
+		free(dirhead); 
+		return NULL; 	
 	}
 	//dirlist 구조체 형태로 filepath, title, content 담음 need free buffer, filename, title, id 
 	dirlist = cJSON_GetObjectItemCaseSensitive(monitor, "dirlist"); 
@@ -25,7 +27,9 @@ TMPL_varlist* index_template(){
 		cJSON* title = cJSON_GetObjectItemCaseSensitive(dir, "title"); 
 		cJSON* filepath = cJSON_GetObjectItemCaseSensitive(dir, "filepath");
 	    cJSON* id = cJSON_GetObjectItemCaseSensitive(dir, "id");
-		if((filepath->valuestring != NULL) && (title->valuestring != NULL)){	
+	
+		//json값이 정상적으로 파싱이 된다면	
+		if((filepath->valuestring != NULL) && (title->valuestring != NULL) && (id->valuestring != NULL)){	
 			Insert_dir(dirhead, filepath->valuestring, title->valuestring, id->valuestring);
 		}
 	}
