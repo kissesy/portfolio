@@ -9,6 +9,7 @@ int main(int argc, char** argv){
 	server = onion_new(O_POLL); 
 	onion_url* urls = init_url(); 
 
+	do_log("Start Server");
 	onion_listen(server); 
 	onion_free(server); 
 	return 0;

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <time.h>
 
 #include "ctemplate.h"
 #include <string.h>
@@ -43,9 +44,7 @@ DirHead* dirhead_new();
 void Insert_dir(DirHead* dirhead, char* filename, char* title, char* id); 
 void Delete_dir(DirHead* dirhead); 
 
-
-char* parse(char* filename);
-
+void do_log(char* msg);
 
 
 

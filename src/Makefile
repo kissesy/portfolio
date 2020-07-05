@@ -2,8 +2,8 @@
 LDFLAGS=-lpthread -lonion_static -lrt
 
 
-webserver : controller.o cJSON.o exportlocal.o view.o ctemplate.o dir.o
-	gcc -o webserver controller.o cJSON.o exportlocal.o view.o ctemplate.o dir.o -lpthread -lonion_static -lrt 
+webserver : controller.o log.o cJSON.o exportlocal.o view.o ctemplate.o dir.o
+	gcc -o webserver log.o controller.o cJSON.o exportlocal.o view.o ctemplate.o dir.o -lpthread -lonion_static -lrt 
 
 dir.o : controller.h dir.c 
 	gcc -c -o dir.o dir.c
@@ -22,6 +22,9 @@ view.o : controller.h view.c
 
 ctemplate.o : ctemplate.h ctemplate.c 
 	gcc -c -o ctemplate.o ctemplate.c 
+
+log.o : controller.h log.c
+	gcc -c -o log.o log.c
 
 clean: 
 	rm *.o webserver 

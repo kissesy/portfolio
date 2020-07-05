@@ -65,14 +65,16 @@ TMPL_varlist* index_template(){
 
 int index_view(void* p, onion_request* req, onion_response* res){
 
+	ONION_INFO("%s %s","client connect!",onion_request_get_client_description(req));
+	do_log("request index view!");
 	TMPL_varlist* context = index_template(); 
 	if(context == NULL){
-		ONION_INFO("index template() return NULL");
+		do_log("index template() return NULL");
 		return OCS_INTERNAL_ERROR;
 	}
 	char* buffer = MakeTemplateBuffer(context, "template/index.html");
 	if(buffer == NULL){
-		ONION_INFO("open_memstream() return NULL");
+		do_log("open_memstream() return NULL");
 		return OCS_INTERNAL_ERROR;
 	}
 	onion_response_printf(res, "%s", buffer);
