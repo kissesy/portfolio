@@ -4,6 +4,10 @@
 //dirlist 를 가리키기위한 head, tail 구조체 
 DirHead* dirhead_new(){
 	DirHead* dirhead = (DirHead*)malloc(sizeof(DirHead)); 
+	if(dirhead == NULL){
+		do_log("malloc() in dirhead_new() return NULL");
+		return NULL; 
+	}
 	dirhead->head = NULL; 
 	dirhead->tail = NULL; 
 	return dirhead; 

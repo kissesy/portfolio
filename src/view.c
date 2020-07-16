@@ -9,9 +9,17 @@ TMPL_varlist* index_template(){
 	TMPL_loop* portfolio_detail_loop = NULL; 
 
 	DirHead* dirhead = dirhead_new(); 
+	if(dirhead == NULL){
+		return NULL; 
+	}
 	
 	//json 파싱
 	char* buffer = read_file("json/list.json");
+	if(buffer == NULL){
+		free(dirhead); 
+		do_log("read_file return NULL");
+		return NULL;
+	}
 	const cJSON* dirlist = NULL; 
     const cJSON* dir = NULL; 
 	//json parse error 
@@ -22,6 +30,13 @@ TMPL_varlist* index_template(){
 	}
 	//dirlist 구조체 형태로 filepath, title, content 담음 need free buffer, filename, title, id 
 	dirlist = cJSON_GetObjectItemCaseSensitive(monitor, "dirlist"); 
+	if(dirlist == NULL){
+		do_log("cJSON_GetObjectItemCaseSensitive() return NULL");
+		free(dirhead); 
+		free(buffer); 
+		cJSON_Delete(monitor); 
+		return NULL; 
+	}
 	cJSON_ArrayForEach(dir, dirlist){
 		
 		cJSON* title = cJSON_GetObjectItemCaseSensitive(dir, "title"); 

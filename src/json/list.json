@@ -24,6 +24,21 @@
 			"title" : "포트폴리오 사이트 백엔드 제작",
 			"filepath" : "../post/test5.html",
 			"id" : "portfolio5"
+		},
+		{
+			"title" : "pygame을 이용한 정말 간단한 rpg게임",
+			"filepath" : "../post/test6.html",
+			"id" : "portfolio6"
+		},
+		{
+			"title" : "리눅스 명령어 게임 코어 부분 제작",
+			"filepath" : "../post/test7.html",
+			"id" : "portfolio7"
+		},
+		{
+			"title" : "정말 간단한 malloc함수 만들기", 
+			"filepath" : "../post/test8.html",
+			"id" : "portfolio8"
 		}
 	]
 }
